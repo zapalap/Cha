@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Cha.Core.Actors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,13 @@ namespace Cha.Core
 {
     public class ChaEngine
     {
-        private static ActorSystem Actors;
+        public ActorSystem Actors { get; private set; }
+        public IActorRef BandMaster { get; private set; } 
 
-        private ChaEngine() { }
-
-        public static ActorSystem ActorSystem
+        public ChaEngine()
         {
-            get
-            {
-                if (Actors == null)
-                {
-                    Actors = ActorSystem.Create("ChaActorSystem");
-                }
-
-                return Actors;
-            }
+            Actors = ActorSystem.Create("ChaActorSystem");
+            BandMaster = Actors.ActorOf(Props.Create(() => new BandMaster(10)), "bandMaster");
         }
     }
 }

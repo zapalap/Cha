@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cha.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,8 @@ namespace Cha.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        public static ChaEngine ChaEngine;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -18,6 +21,8 @@ namespace Cha.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ChaEngine = new ChaEngine();
         }
     }
 }
